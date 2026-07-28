@@ -1,61 +1,57 @@
-import { useState } from 'react'
-import { useAuth } from '../context/AuthContext'
-import { useNavigate, Link } from 'react-router-dom'
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function Register() {
-  const { register } = useAuth()
-  const navigate = useNavigate()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const [text, setText] = useState("");
+  const [password, setPassword] = useState("");
+  const { register } = useAuth();
+  const navigate = useNavigate();
+  const [error, setError] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError('')
+  const handleClick = async () => {
     try {
-      await register(email, password)
-      navigate('/')
-    } catch {
-      setError('회원가입에 실패했습니다. 다시 시도해주세요.')
+      await register(text, password);
+      navigate("/");
+    } catch (e) {
+      setError("이미 사용중인 이메일입니다.");
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-sm">
-        <h2 className="text-2xl font-bold mb-6 text-center">회원가입</h2>
-        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <>
+      <div className="flex justify-center items-center min-h-screen flex-col gap-2">
+        <div className="flex justify-center items-center bg-white outline shadow flex-col w-[60%] p-3 gap-3 h-auto">
+          <h2 className="py-5 text-2xl font-bold">회원가입</h2>
+          {error && <span className="text-red-500 text-sm">{error}</span>}
           <input
-            type="email"
-            placeholder="이메일"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            required
+            type="text"
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="이메일을 입력하세요."
+            className="w-[70%] border-black-100 border px-4 py-2 rounded-lg "
           />
           <input
             type="password"
-            placeholder="비밀번호 (6자 이상)"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            required
+            placeholder="비밀번호를 입력하세요."
+            className="w-[70%] border-black-100 border px-4 py-2 rounded-lg "
           />
           <button
-            type="submit"
-            className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+            onClick={handleClick}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 active:scale-95 transition"
           >
             회원가입
           </button>
-        </form>
-        <p className="text-sm text-center mt-4">
-          이미 계정이 있으신가요?{' '}
-          <Link to="/login" className="text-blue-500 hover:underline">
+        </div>
+        <div className="w-[60%] text-right">
+          <Link to="/login" className="text-blue-500 mt-auto">
             로그인
           </Link>
-        </p>
+          <span>하기</span>
+        </div>
       </div>
-    </div>
-  )
+    </>
+  );
 }
