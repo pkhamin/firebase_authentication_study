@@ -13,7 +13,7 @@ const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
-
+  const [loading, setLoading] = useState(true);
   const register = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password);
   // 새계정 만들기
@@ -27,6 +27,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
+      setLoading(false);
     });
 
     return unsubscribe;
@@ -34,7 +35,8 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={{ currentUser, register, login, logout }}>
-      {children} {/* AuthProvider로 감싼 모든 컴포넌트가 여기 들어옴 */}
+      {!loading && children}{" "}
+      {/* AuthProvider로 감싼 모든 컴포넌트가 여기 들어옴 */}
     </AuthContext.Provider>
   );
 }

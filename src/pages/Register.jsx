@@ -21,7 +21,7 @@ export default function Register() {
   return (
     <>
       <div className="flex justify-center items-center min-h-screen flex-col gap-2">
-        <div className="flex justify-center items-center bg-white outline shadow flex-col w-[60%] p-3 gap-3 h-auto">
+        <div className="flex justify-center items-center bg-white outline shadow flex-col w-[80%] md:w-[60%] p-3 gap-3 h-auto">
           <h2 className="py-5 text-2xl font-bold">회원가입</h2>
           {error && <span className="text-red-500 text-sm">{error}</span>}
           <input
