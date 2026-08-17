@@ -45,7 +45,7 @@ export default function Login() {
             로그인
           </button>
         </div>
-        <div className="w-[60%] text-right">
+        <div className="w-[80%] md:w-[60%] text-right">
           <Link to="/register" className="text-blue-500 mt-auto">
             회원가입
           </Link>
