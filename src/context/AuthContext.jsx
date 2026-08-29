@@ -32,6 +32,10 @@ export function AuthProvider({ children }) {
 
   const logout = () => signOut(auth);
 
+  const updateName = (name) =>
+    updateProfile(currentUser, { displayName: name });
+  // 이름 변경하기
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
@@ -42,7 +46,9 @@ export function AuthProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ currentUser, register, login, logout }}>
+    <AuthContext.Provider
+      value={{ currentUser, register, login, logout, updateName }}
+    >
       {!loading && children}{" "}
       {/* AuthProvider로 감싼 모든 컴포넌트가 여기 들어옴 */}
     </AuthContext.Provider>
