@@ -5,6 +5,7 @@ import {
   signOut,
   onAuthStateChanged,
   updateProfile,
+  updatePassword,
 } from "firebase/auth";
 // 함수만 가져다 쓰면 된다
 import { auth } from "../firebase/config";
@@ -36,6 +37,10 @@ export function AuthProvider({ children }) {
     updateProfile(currentUser, { displayName: name });
   // 이름 변경하기
 
+  const changePassword = (newPassWord) =>
+    updatePassword(currentUser, newPassWord);
+  // 비밀번호 변경하기
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
@@ -47,7 +52,14 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ currentUser, register, login, logout, updateName }}
+      value={{
+        currentUser,
+        register,
+        login,
+        logout,
+        updateName,
+        changePassword,
+      }}
     >
       {!loading && children}{" "}
       {/* AuthProvider로 감싼 모든 컴포넌트가 여기 들어옴 */}
