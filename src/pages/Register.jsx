@@ -5,13 +5,18 @@ import { useAuth } from "../context/AuthContext";
 export default function Register() {
   const [text, setText] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const { register } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const handleClick = async () => {
+    if (!name.trim()) {
+      setError("이름을 입력해주세요.");
+      return;
+    }
     try {
-      await register(text, password);
+      await register(text, password, name.trim());
       navigate("/");
     } catch (e) {
       setError("이미 사용중인 이메일입니다.");
@@ -36,6 +41,13 @@ export default function Register() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="비밀번호를 입력하세요."
+            className="w-[70%] border-black-100 border px-4 py-2 rounded-lg "
+          />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="이름을 입력하세요."
             className="w-[70%] border-black-100 border px-4 py-2 rounded-lg "
           />
           <button

@@ -13,7 +13,7 @@ export default function Home() {
   return (
     <>
       <div className="flex flex-col justify-center items-center min-h-screen gap-5">
-        <span className="text-2xl text-bold">"환영합니다!"</span>
+        <span className="text-2xl text-bold">{currentUser?.displayName}님, 환영합니다!</span>
         <span>로그인한 계정 : {currentUser?.email}</span>
         <button
           onClick={handleClick}
