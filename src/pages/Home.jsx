@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ export default function Home() {
           {currentUser?.displayName}님, 환영합니다!
         </span>
         <span>로그인한 계정 : {currentUser?.email}</span>
+        <Link to="/mypage">마이페이지</Link>
       </div>
     </>
   );
